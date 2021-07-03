@@ -5,39 +5,31 @@
 
 <!-- Navbar -->
 <nav
-  class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
+  class="top-0 left-0 w-full z-10 bg-transparent  md:flex-row md:flex-nowrap md:justify-start flex items-center mb-12"
 >
   <div
-    class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
+    class="w-full mx-autp bg-white border-b-2 border-opacity-25  items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 p-2"
   >
     <!-- Brand -->
     <a
-      class="text-white text-sm uppercase hidden lg:inline-block font-semibold"
+      class="text-black text-sm uppercase hidden lg:inline-block font-semibold"
       href="#pablo" on:click={(e) => e.preventDefault()}
     >
       Dashboard
     </a>
-    <!-- Form -->
-    <form
-      class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3"
-    >
-      <div class="relative flex w-full flex-wrap items-stretch">
-        <span
-          class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3"
-        >
-          <i class="fas fa-search"></i>
-        </span>
-        <input
-          type="text"
-          placeholder="Search here..."
-          class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10"
-        />
-      </div>
-    </form>
     <!-- User -->
     <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
       <UserDropdown />
     </ul>
   </div>
 </nav>
+<!-- <nav class="bg-white rounded font-sans w-full py-2 pl-10 mb-12">
+  <ol class="list-reset flex text-grey-dark">
+    <li><a href="#" class="font-reguler">Home</a></li>
+    <li><span class="mx-2">></span></li>
+    <li><a href="#" class="font-reguler">Library</a></li>
+    <li><span class="mx-2">></span></li>
+    <li>Data</li>
+  </ol>
+</nav> -->
 <!-- End Navbar -->

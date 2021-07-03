@@ -23,7 +23,7 @@
         style="background-image: url({registerBg2});"
       ></div>
       <Router url="auth">
-        <Route path="login" component="{Login}" />
+        <Route path="/" component="{Login}" />
         <Route path="register" component="{Register}" />
       </Router>
       <FooterSmall absolute="true" />

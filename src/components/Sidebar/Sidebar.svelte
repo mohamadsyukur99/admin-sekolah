@@ -31,7 +31,7 @@
     <!-- Brand -->
     <a
       use:link
-      class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+      class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0 pt-1"
       href="/"
     >
       Notus Svelte
@@ -86,7 +86,7 @@
       </form>
 
       <!-- Divider -->
-      <hr class="my-4 md:min-w-full" />
+      <hr class="mb-4 md:min-w-full" />
       <!-- Heading -->
       <h6
         class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
