@@ -15,7 +15,7 @@
       class="text-black text-sm uppercase hidden lg:inline-block font-semibold"
       href="#pablo" on:click={(e) => e.preventDefault()}
     >
-      Dashboard
+      
     </a>
     <!-- User -->
     <ul class="flex-col md:flex-row list-none items-center hidden md:flex">

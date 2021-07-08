@@ -1,6 +1,7 @@
 <script>
   // library for creating dropdown menu appear on click
   import { createPopper } from "@popperjs/core";
+  import { navigate } from 'svelte-routing';
 
   // core components
 
@@ -22,6 +23,11 @@
       });
     }
   };
+
+  const logout =()=>{
+    localStorage.clear()
+    navigate("/auth/login", { replace: true });
+  }
 </script>
 
 <div>
@@ -51,26 +57,20 @@
       href="#pablo" on:click={(e) => e.preventDefault()}
       class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
     >
-      Action
-    </a>
-    <a
-      href="#pablo" on:click={(e) => e.preventDefault()}
-      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-    >
-      Another action
-    </a>
-    <a
-      href="#pablo" on:click={(e) => e.preventDefault()}
-      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-    >
-      Something else here
+      Profile
     </a>
     <div class="h-0 my-2 border border-solid border-blueGray-100" />
     <a
-      href="#pablo" on:click={(e) => e.preventDefault()}
+      href="#m" on:click={logout}
       class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
     >
-      Seprated link
+      Log Out
     </a>
+
+    <!-- <i 
+      on:click={logout} 
+      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
+      Log Out
+    </i> -->
   </div>
 </div>

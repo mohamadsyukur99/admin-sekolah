@@ -8,10 +8,16 @@
   // pages for this layout
   import Login from "views/auth/Login.svelte";
   import Register from "views/auth/Register.svelte";
+  import { link, navigate } from 'svelte-routing';
 
   const registerBg2 = "../assets/img/register_bg_2.png";
   export let location;
   export let auth = "";
+
+  let isLogin = localStorage.getItem('isLogin');
+  if (isLogin == 1){
+    navigate("/admin/dashboard", { replace: true });
+  }
 </script>
 
 <div>
@@ -23,7 +29,7 @@
         style="background-image: url({registerBg2});"
       ></div>
       <Router url="auth">
-        <Route path="/" component="{Login}" />
+        <Route path="login" component="{Login}" />
         <Route path="register" component="{Register}" />
       </Router>
       <FooterSmall absolute="true" />

@@ -1,6 +1,6 @@
 <script>
-  import { Link } from "svelte-routing";
-
+  import { Link, navigate } from "svelte-routing";
+  
   // core components
   import IndexNavbar from "components/Navbars/IndexNavbar.svelte";
   import Footer from "components/Footers/Footer.svelte";
@@ -16,6 +16,15 @@
   const login = "/assets/img/login.jpg";
   const profile = "/assets/img/profile.jpg";
   const landing = "/assets/img/landing.jpg";
+
+  let isLogin = localStorage.getItem('isLogin');
+
+
+
+  if (isLogin != 1) {
+    navigate("auth/login", { replace: true });
+  } 
+
   export let location;
 </script>
 

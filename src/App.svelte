@@ -23,5 +23,5 @@
   <!-- no layout pages -->
   <Route path="landing" component="{Landing}" />
   <Route path="profile" component="{Profile}" />
-  <Route path="/*" component="{Auth}" />
+  <Route path="/*" component="{Index}" />
 </Router>
