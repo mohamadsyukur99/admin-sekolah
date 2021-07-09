@@ -5,7 +5,7 @@
 
 <!-- Navbar -->
 <nav
-  class="top-0 left-0 w-full z-10 bg-transparent  md:flex-row md:flex-nowrap md:justify-start flex items-center mb-12"
+  class="top-0 left-0 w-full z-10 bg-transparent  md:flex-row md:flex-nowrap md:justify-start flex items-center mb-0"
 >
   <div
     class="w-full mx-autp bg-white border-b-2 border-opacity-25  items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 p-2"

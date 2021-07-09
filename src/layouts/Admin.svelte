@@ -26,7 +26,7 @@
   <Sidebar location={location}/>
   <div class="relative md:ml-64 bg-blueGray-100">
     <AdminNavbar />
-    <div class="px-4 md:px-10 mx-auto w-full pt-4">
+    <div class="px-4 md:px-10 mx-auto w-full pt-4"> 
       <Router url="admin">
         <Route path="dashboard" component="{Dashboard}" />
         <Route path="settings" component="{Settings}" />

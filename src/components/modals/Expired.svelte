@@ -5,6 +5,7 @@
     }
 
 </script>
+
   <div class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
     <div class="relative w-auto my-6 mx-auto max-w-sm">
       <!--content-->
@@ -28,11 +29,15 @@
         </div>
         <!--footer-->
         <div class="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
-          <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" on:click={toggleModal}>
-            Save Changes
+          <button class="bg-red-600 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" on:click={toggleModal}>
+            Oke
           </button>
+          <!-- <button type="button" class="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+            Oke
+          </button> -->
         </div>
       </div>
     </div>
   </div>
   <div class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+

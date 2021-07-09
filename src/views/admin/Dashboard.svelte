@@ -5,6 +5,9 @@
   import CardPageVisits from "components/Cards/CardPageVisits.svelte";
   import CardSocialTraffic from "components/Cards/CardSocialTraffic.svelte";
   import ModalExpired from "components/modals/Expired.svelte"
+  import Title from "components/Navbars/Title.svelte"
+
+
   export let location;
   let isLogin = localStorage.getItem('isLogin');
 </script>
@@ -13,6 +16,7 @@
   {#if isLogin != 1}
   <ModalExpired/>
   {/if}
+  <Title judul="Dashboard" desc="Selamat Datang Di APlikasi Administrasi"/>
   <div class="flex flex-wrap">
     <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
       <CardLineChart />
