@@ -1,13 +1,13 @@
 <script>
 	import { link, navigate } from 'svelte-routing';
-  import { Login } from './../../api/auth/login'
+  import { Login  } from './../../api/auth/login'
   
   
   let isAlert = false
   let pesan = "";
   let statusButton = 0;
   let data = {
-    email : "",
+    username : "",
     password : ""
   }
 
@@ -31,7 +31,7 @@
 
   const handleLogin = () =>{
     statusButton = 1;
-    if (data.email == ""){
+    if (data.username == ""){
       isAlert = true
       pesan = "Email Tidak boleh koosng"
       statusButton = 0;
@@ -59,10 +59,6 @@
       statusButton=0
     })
   }
-
-  // core components
-  const github = "../assets/img/github.svg";
-  const google = "../assets/img/google.svg";
   export let location;
 </script>
 
@@ -100,14 +96,14 @@
                 class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 for="grid-email"
               >
-                Email
+                Username
               </label>
               <input
                 id="grid-email"
                 type="email"
                 class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 placeholder="Username"
-                bind:value="{data.email}"
+                bind:value="{data.username}"
               />
             </div>
 

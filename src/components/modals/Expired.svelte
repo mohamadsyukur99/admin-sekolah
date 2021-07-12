@@ -1,6 +1,7 @@
 <script>
-    import { link, navigate } from 'svelte-routing';
+      import { navigate } from 'svelte-routing';
     function toggleModal(){
+      localStorage.clear()
       navigate("/auth/login", { replace: true });
     }
 

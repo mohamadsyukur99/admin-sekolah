@@ -161,6 +161,11 @@
   dependencies:
     tslib "^1.9.3"
 
+"@zerodevx/svelte-toast@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@zerodevx/svelte-toast/-/svelte-toast-0.3.0.tgz#39a15b409ddb6790c66a0665cbd589c0d8dd9234"
+  integrity sha512-TY5dLB5DEpxuHu60M6gum+fDxzIGXg35R8500orz58JTFs9LiHWoEfeJ4n9t7Afix3iMmYLl2thjhnCHCiQIhQ==
+
 acorn-node@^1.6.1:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/acorn-node/-/acorn-node-1.8.2.tgz#114c95d64539e53dede23de8b9d96df7c7ae2af8"
@@ -1317,6 +1322,11 @@ xtend@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
+
+yuo@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/yuo/-/yuo-0.0.1.tgz#004bc56fae2e9d6b20b4fa3de85bede49974b59f"
+  integrity sha512-o67e4R/xhWO7/cdOAN2hv0yH9k2bmXR9eGbHHz8mA64ytUlPzbLftxylhtIRH1swJ03XENZ8oejS6CFyYWHhjg==
 
 zen-observable-ts@^0.8.21:
   version "0.8.21"

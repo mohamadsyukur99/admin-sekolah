@@ -6,17 +6,16 @@ const axiosAPI = axios.create({
   baseURL : "http://127.0.0.1:8888/api/v1/" // it's not recommended to have this info here.
 });
 
+
 // implement a method to execute all the request from here.
 const apiRequest = (method, url, request) => {
-    const headers = {
-        authorization: ""
-    };
+    const token = localStorage.getItem('token');
     //using the axios instance to perform the request that received from each http method
     return axiosAPI({
         method,
         url,
         data: request,
-        headers:headers,
+        headers: { Authorization: 'bearer '+ token },
         responseType: 'json',
       }).then(res => {
         return Promise.resolve(res.data);
