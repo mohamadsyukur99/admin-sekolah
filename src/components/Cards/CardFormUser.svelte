@@ -1,5 +1,5 @@
 <script>
-  import {createEventDispatcher} from 'svelte'
+  import {createEventDispatcher,onMount} from 'svelte'
   import { emailValidator, requiredValidator } from './../../validate/validators.js'
   import { createFieldValidator } from './../../validate/validation.js'
   import { getUsersByName } from './../../api/users/users'
@@ -8,6 +8,12 @@
   const [ validity, validate ] = createFieldValidator(requiredValidator(), emailValidator())
   let isLogin = localStorage.getItem('isLogin');
   let selecet;
+  let readonly = ""
+  let checkbox = true;
+  let username = false;
+  let isEdit = 0;
+  let judul = "Tambah User"
+  export let dataUpdate = []
   let data = {
     name:"",
     username:"",
@@ -28,9 +34,6 @@
     data.level=""
   }  
   
-  const closeAlert =()=>{
-    alertOpen = 0
-  }
   const handleClose = () =>{
     let id = 0
     clearForm();
@@ -70,11 +73,11 @@
       msgError = $validity.message
       alertOpen = 1
       return
-    }else if(data.password == ""){
+    }else if(data.password == "" && isEdit == 0){
       msgError = "Password Tidak boleh koosng"
       alertOpen = 1
       return
-    }else if (data.password.length < 6){
+    }else if (data.password.length < 6 && isEdit == 0){
       msgError = "Password harus lebih dari 6 karakter"
       alertOpen = 1
       return
@@ -94,18 +97,45 @@
     }
     alertOpen = 0
     data.level=selecet
-
+    
     dispatch('onSimpan',{
-			key:data
-		});
+      key:data
+    });
     clearForm();
   }
+
+  const handleUpdate = () =>{
+    formValidation()
+    if(msgError != ""){
+      return
+    }
+    alertOpen = 0
+    data.level=selecet
+    
+    dispatch('onUpdate',{
+      key:data
+    });
+    clearForm();
+  }
+
+  onMount(async () => {
+    if (dataUpdate.id != undefined){
+      data.username = dataUpdate.username
+      data.name=dataUpdate.name
+      data.email=dataUpdate.email
+      data.level=dataUpdate.level
+      username = true
+      checkbox = false;
+      isEdit=1
+      judul = "Ubah User"
+    }
+	});
 
 </script>
 <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
     <div class="rounded-t bg-white mb-0 px-4 py-4 border-b">
       <div class="text-center flex justify-between">
-        <h6 class="text-blueGray-700 text-xl font-bold">Tambah User</h6>
+        <h6 class="text-blueGray-700 text-xl font-bold">{judul}</h6>
         <button
           class="bg-red-400 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
           type="button"
@@ -150,11 +180,13 @@
                 Username
               </label>
               <input
+                {readonly}
                 id="grid-username"
                 placeholder="Username"
                 type="text"
                 class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
                 bind:value="{data.username}"
+                disabled={username}
               />
             </div>
           </div>
@@ -172,7 +204,14 @@
                 type="password"
                 class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
                 bind:value="{data.password}"
+                disabled={!checkbox}
               />
+              {#if isEdit ==1}
+                <input bind:checked={checkbox} id="comments" name="comments" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                <label for="" class="text-sm text-gray-500">
+                    Chek untuk merubah password
+                </label>
+              {/if}
             </div>
           </div>
           <div class="w-full lg:w-6/12 px-4">
@@ -215,15 +254,26 @@
         </div>
         <div class="text-center flex justify-between">
           <div class="mr-0 pt-6 pb-0">
+            {#if isEdit ==0}
+              <button
+                class="bg-lightBlue-600 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                type="button"
+                on:click="{handleSimpan}"
+              >
+                Save
+              </button>
+            {:else}
             <button
-              class="bg-lightBlue-600 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              type="button"
-              on:click="{handleSimpan}"
-            >
-              Save
-            </button>
+                class="bg-lightBlue-600 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                type="button"
+                on:click="{handleUpdate}"
+              >
+                Save
+              </button>
+            {/if}
+            
             <button
-              class="bg-lightBlue-600 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+              class="bg-red-600 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
               type="button"
               on:click="{handleClose}"
             >

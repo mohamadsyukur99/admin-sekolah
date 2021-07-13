@@ -21,6 +21,13 @@
 			key:id
 		});
   }
+
+  const handleHapus = (id) =>{
+    dispatch('onHapus',{
+			key:id
+		});
+    // console.log('tesss')
+  }
   
   const level = (kode) =>{
     switch (kode) {
@@ -120,7 +127,7 @@
                   </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Hapus</a>
+                  <a on:click="{handleHapus(user.id)}" href="#h" class="text-indigo-600 hover:text-indigo-900">Hapus</a>
                 </td>
               </tr>
               {/each}
