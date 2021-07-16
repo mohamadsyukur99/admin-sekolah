@@ -1,3 +1,6 @@
+<svelte:head>
+	<title>Dashboard</title>
+</svelte:head>
 <script>
   // core components
   import CardLineChart from "components/Cards/CardLineChart.svelte";
@@ -16,21 +19,19 @@
   {#if isLogin != 1}
   <ModalExpired/>
   {/if}
-  <Title judul="Dashboard" desc="Selamat Datang Di APlikasi Administrasi"/>
+  <!-- <Title judul="Dashboard" desc="Selamat Datang Di APlikasi Administrasi"/> -->
+  <center>
+    <div class="mt-2 mb-0  items-right text-lg text-gray-500">
+        Selamat Datang Di Aplikasi Administrasi
+    </div>
+    <div class="mt-0 mb-8  items-right text-lg text-gray-500">
+        SMA Negeri 1 Indinesia
+    </div>
+  </center>
+
   <div class="flex flex-wrap">
-    <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
+    <div class="w-full  mb-12 xl:mb-0 px-4">
       <CardLineChart />
-    </div>
-    <div class="w-full xl:w-4/12 px-4">
-      <CardBarChart />
-    </div>
-  </div>
-  <div class="flex flex-wrap mt-4">
-    <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-      <CardPageVisits />
-    </div>
-    <div class="w-full xl:w-4/12 px-4">
-      <CardSocialTraffic />
     </div>
   </div>
 </div>

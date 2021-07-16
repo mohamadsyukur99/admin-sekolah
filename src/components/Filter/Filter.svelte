@@ -2,6 +2,7 @@
   import {createEventDispatcher} from 'svelte'
 
   const dispatch = createEventDispatcher();
+  export let judul="title"
   export let label = "Label";
   export let placeholder = "Placeholder";
   let dataFilter = "";
@@ -25,7 +26,7 @@
     <div class="text-center flex justify-between">
       <div>
         <h6 class="text-white text-sm  font-bold uppercase">
-          Filter Data User
+          {judul}
         </h6>
       </div>
     </div>

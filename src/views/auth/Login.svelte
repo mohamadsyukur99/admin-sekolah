@@ -1,3 +1,6 @@
+<svelte:head>
+	<title>Halaman Login</title>
+</svelte:head>
 <script>
 	import { link, navigate } from 'svelte-routing';
   import { Login  } from './../../api/auth/login'

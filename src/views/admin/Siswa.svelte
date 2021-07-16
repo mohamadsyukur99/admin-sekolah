@@ -1,34 +1,35 @@
 <svelte:head>
-	<title>Halaman User</title>
+	<title>Halaman Siswa</title>
 </svelte:head>
 <script>
 	import { onMount } from 'svelte';
-  import { getUsers,getUsersByName,postUsers,getUsersById,putUsers,deleteUsers } from './../../api/users/users'
+  import { getSiswa,getSiswaByName,postSiswa,getUSiswaById,putSiswa,deleteSiswa } from './../../api/siswa/siswa'
   // core components
-  import CardUser from "components/Cards/CardUser.svelte";
-  import CardFormUser from "components/Cards/CardFormUser.svelte";
+  import CardSiswa from "components/Cards/CardSiswa.svelte";
+  import CardFormSiswa from "components/Cards/CardFormSiswa.svelte";
   import ModalExpired from "components/modals/Expired.svelte"
   import ModalInformation from "components/modals/Information.svelte"
   import Filter from "components/Filter/Filter.svelte"
   import Alert from "components/Alert/Alert.svelte"
   import Title from "components/Navbars/Title.svelte"
+  import Utils from "../../utils/Utils"
 
   let isLogin = localStorage.getItem('isLogin');
   let data = [];
   let dataSimpan = [];
   let dataUpdate= [];
   let dataFilter;
-  let idUser;
+  let idSiswa;
   let isForm = 0;
   let isAlert = 0;
   let isHapus = 0;
   let pesanAlert = "";
   let judulAlert = "";
-  let namaUser = "";
+  let namaSiswa = "";
 
 
-  const getAllUsers = () =>{
-    getUsers().then(res => {
+  const getAllSiswa = () =>{
+    getSiswa().then(res => {
       if (res == '401'){
         isLogin = 0
       }else{
@@ -43,7 +44,7 @@
     data = [];
     dataFilter = event.detail.key
     if (dataFilter == ""){
-      getAllUsers()
+      getAllSiswa()
     }else{
       getUsersByName(dataFilter).then(res => {
       if (res == '401'){
@@ -65,9 +66,9 @@
   }
 
   const formEdit = (event) => {
-    idUser      = event.detail.key
+    idSiswa      = event.detail.key
     isAlert=0
-    getUsersById(idUser).then(res => {
+    getUsersById(idSiswa).then(res => {
       if (res == '401'){
         isLogin = 0
       }else{
@@ -91,32 +92,32 @@
         judulAlert= "Information"
         pesanAlert= "Data berhasil ditambah"
         isAlert=1
-        getAllUsers()
+        getAllSiswa()
       }
     })
   }
 
   const handleUpdate = (event) => {
     dataUpdate = event.detail.key
-    putUsers(JSON.stringify(dataUpdate),idUser).then(res =>{
+    putUsers(JSON.stringify(dataUpdate),idSiswa).then(res =>{
       if (res.response != undefined){
         isForm = 0;
         isAlert=1
         judulAlert= "Information"
         pesanAlert= "Data berhasil diubah"
-        getAllUsers()
+        getAllSiswa()
       }
     })
   }
 
   const handleHapus = (event) =>{
     isHapus = 0
-    deleteUsers(idUser).then(res =>{
+    deleteUsers(idSiswa).then(res =>{
       if (res.response != undefined){
         isAlert=1
         judulAlert= "Information"
         pesanAlert= "Data berhasil dihapus"
-        getAllUsers()
+        getAllSiswa()
       }
     })
   }
@@ -124,21 +125,21 @@
     isHapus =event.detail.key
   }
   const konfirHapus = (event) =>{
-    idUser = event.detail.key
+    idSiswa = event.detail.key
     let dataHapus = []
     isHapus = 1
-    getUsersById(idUser).then(res => {
+    getUsersById(idSiswa).then(res => {
       if (res == '401'){
         isLogin = 0
       }else{
         dataHapus = res.response
-        namaUser = dataHapus.name
+        namaSiswa = dataHapus.name
       }
     })
   }
 
   onMount(async () => {
-		const res = await getUsers()
+		const res = await getSiswa()
     if (res == '401'){
       isLogin = 0
     }else{
@@ -156,13 +157,13 @@
 {#if isHapus == 1}
   <ModalInformation 
     judul ="Konfirmasi" 
-    pesan="Apakah Anda Yakin User {namaUser} Ingin Dihapus?" 
+    pesan="Apakah Anda Yakin Siswa {namaSiswa} Ingin Dihapus?" 
     on:onHapus={handleHapus}
     on:onBatal={handleBatalHapus}
   />
 {/if}
 
-<Title judul="Halaman User" desc="Halaman Informasi Data User"/>
+<Title judul="Halaman Siswa" desc="Halaman Informasi Data Siswa"/>
 <div class="flex flex-wrap mt-3">
   <div class="w-full mb-12 px-2">
     {#if isAlert ==1}
@@ -171,18 +172,18 @@
     {#if isForm == 0}
     <Filter 
       on:filter={handleFilter} 
-      judul="Filter Data User"
-      label="Nama / Username" 
-      placeholder = "Masukan Nama / Username"
+      judul="Filter Data Siswa"
+      label="Nama / No Induk" 
+      placeholder = "Masukan Nama / No Induk"
     />
-    <CardUser 
+    <CardSiswa 
       data={data} 
       on:onEdit={formEdit}
       on:onTambah={formTambah}
       on:onHapus={konfirHapus}
     /> 
     {:else}
-      <CardFormUser 
+      <CardFormSiswa 
         on:onBatal={handleBatal}
         on:onSimpan={handleSimpan}
         on:onUpdate={handleUpdate}

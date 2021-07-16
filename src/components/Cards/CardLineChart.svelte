@@ -9,20 +9,19 @@
       type: "line",
       data: {
         labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
+          "Bahasa Indonesia",
+          "Matematika",
+          "bahasa Inggris",
+          "Biologi",
+          "Kimia",
+          "Fisika",
         ],
         datasets: [
           {
             label: new Date().getFullYear(),
             backgroundColor: "#4c51bf",
             borderColor: "#4c51bf",
-            data: [65, 78, 66, 44, 56, 67, 75],
+            data: [65, 78, 66, 44, 56, 67],
             fill: false
           },
           {
@@ -120,7 +119,7 @@
           Overview
         </h6>
         <h2 class="text-white text-xl font-semibold">
-          Sales value
+          Nilai
         </h2>
       </div>
     </div>

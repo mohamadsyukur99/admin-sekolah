@@ -10,7 +10,7 @@
   import Dashboard from "views/admin/Dashboard.svelte";
   import Settings from "views/admin/Settings.svelte";
   import Users from "views/admin/Users.svelte";
-  import Maps from "views/admin/Maps.svelte";
+  import Siswa from "views/admin/Siswa.svelte";
 
   export let location;
   export let admin = "";
@@ -31,7 +31,7 @@
         <Route path="dashboard" component="{Dashboard}" />
         <Route path="settings" component="{Settings}" />
         <Route path="users" component="{Users}" />
-        <Route path="maps" component="{Maps}" />
+        <Route path="siswa" component="{Siswa}" />
       </Router>
       <FooterAdmin />
     </div>

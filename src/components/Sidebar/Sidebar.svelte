@@ -34,7 +34,7 @@
       class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0 pt-1"
       href="/"
     >
-      Notus Svelte
+      SMANESA
     </a>
     <!-- User -->
     <ul class="md:hidden items-center flex flex-wrap list-none">
@@ -108,20 +108,6 @@
             Dashboard
           </a>
         </li>
-
-        <li class="items-center">
-          <a
-            use:link
-            href="/admin/settings"
-            class="text-xs uppercase py-3 font-bold block {location.href.indexOf('/admin/settings') !== -1 ? 'text-red-500 hover:text-red-600':'text-blueGray-700 hover:text-blueGray-500'}"
-          >
-            <i
-              class="fas fa-tools mr-2 text-sm {location.href.indexOf('/admin/settings') !== -1 ? 'opacity-75' : 'text-blueGray-300'}"
-            ></i>
-            Settings
-          </a>
-        </li>
-
         <li class="items-center">
           <a
             use:link
@@ -132,6 +118,19 @@
               class="fas fa-table mr-2 text-sm {location.href.indexOf('/admin/users') !== -1 ? 'opacity-75' : 'text-blueGray-300'}"
             ></i>
             Data User
+          </a>
+        </li>
+
+        <li class="items-center">
+          <a
+            use:link
+            href="/admin/siswa"
+            class="text-xs uppercase py-3 font-bold block {location.href.indexOf('/admin/siswa') !== -1 ? 'text-red-500 hover:text-red-600':'text-blueGray-700 hover:text-blueGray-500'}"
+          >
+            <i
+              class="fas fa-table mr-2 text-sm {location.href.indexOf('/admin/siswa') !== -1 ? 'opacity-75' : 'text-blueGray-300'}"
+            ></i>
+            Data Siswa
           </a>
         </li>
 
