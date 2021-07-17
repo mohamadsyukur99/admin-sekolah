@@ -10,7 +10,7 @@
   import Register from "views/auth/Register.svelte";
   import { link, navigate } from 'svelte-routing';
 
-  const registerBg2 = "../assets/img/register_bg_2.png";
+  const gambar = "../assets/img/gambar-01-min-min.jpg";
   export let location;
   export let auth = "";
 
@@ -25,7 +25,7 @@
     <section class="relative w-full h-full py-40 min-h-screen">
       <div
         class="absolute top-0 w-full h-full bg-blueGray-800 bg-no-repeat bg-full"
-        style="background-image: url({registerBg2});"
+        style="background-image: url({gambar});"
       ></div>
       <Router url="auth">
         <Route path="login" component="{Login}" />

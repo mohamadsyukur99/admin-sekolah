@@ -15,15 +15,15 @@
       class="text-black text-sm uppercase hidden lg:inline-block font-semibold"
       href="#pablo" on:click={(e) => e.preventDefault()}
     >
-      
+    <div class="mt-0 flex items-center text-lg text-gray-500">
+      SMA NEGERI 1 INDONESIA
+    </div>
     </a>
     <a
       class="text-black text-sm uppercase hidden lg:inline-block font-semibold"
       href="#pablo" on:click={(e) => e.preventDefault()}
     >
-      <div class="mt-0 flex items-center text-lg text-gray-500">
-          SMA NEGERI 1 INDONESIA
-      </div>
+      
     </a>
     <!-- User -->
     <ul class="flex-col md:flex-row list-none items-center hidden md:flex">

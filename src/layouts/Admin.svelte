@@ -1,5 +1,7 @@
 <script>
   import { Router, Route } from "svelte-routing";
+  import { onMount } from 'svelte';
+  import Auth from './../api/auth/login'
 
   // components for this layout
   import AdminNavbar from "components/Navbars/AdminNavbar.svelte";
@@ -12,8 +14,24 @@
   import Users from "views/admin/Users.svelte";
   import Siswa from "views/admin/Siswa.svelte";
 
+
   export let location;
   export let admin = "";
+
+  const CekStatus = () =>{
+    Auth.CekStatus().then(res => {
+      if (res == '401'){
+        isLogin = 0
+      }else{
+        console.log("oke")
+      }
+    })
+  }
+
+  onMount(async () => {
+		 await CekStatus()
+	});
+
 
 
   let isLogin = localStorage.getItem('isLogin');

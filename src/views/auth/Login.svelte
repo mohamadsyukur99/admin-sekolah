@@ -3,7 +3,7 @@
 </svelte:head>
 <script>
 	import { link, navigate } from 'svelte-routing';
-  import { Login  } from './../../api/auth/login'
+  import Auth from './../../api/auth/login'
   
   
   let isAlert = false
@@ -47,7 +47,7 @@
     }
     let kode = '';
     let msg = '';
-    Login(data).then(res =>{
+    Auth.Login(data).then(res =>{
       kode = res.response.code;
       msg = res.response.message;
       data = res.response;

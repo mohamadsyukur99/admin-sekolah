@@ -16,8 +16,20 @@ const Logout = ()=>{
   navigate("/auth/login", { replace: true });
 }
 
-const Auth = {
-  Login
+const CekStatus = async ()=> {
+  try {
+    const response = await Api.get("/cek");
+    return response;
+  } catch (error) {
+    let response='401'
+    return response
+  }
 }
 
-// export  Auth
+const Auth = {
+  Logout,
+  Login,
+  CekStatus
+}
+
+export default Auth

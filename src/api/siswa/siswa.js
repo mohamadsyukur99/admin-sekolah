@@ -60,7 +60,6 @@ export const postSiswa = async(data) => {
 
 // Get a pokemon details by name
 export const putSiswa = async(data,id) => {
-  console.log(data)
   try {
     const response = await Api.put(`/siswa/${id}`,`${data}`);
     return response;
@@ -82,3 +81,15 @@ export const deleteSiswa = async(id) => {
     // return response
   }
 };
+
+const Siswa = {
+  getSiswa,
+  getSiswaByName,
+  getSiswaByNoInduk,
+  getUSiswaById,
+  postSiswa,
+  putSiswa,
+  deleteSiswa
+}
+
+export default Siswa

@@ -2,7 +2,7 @@
   import {createEventDispatcher,onMount} from 'svelte'
   import { emailValidator, requiredValidator } from './../../validate/validators.js'
   import { createFieldValidator } from './../../validate/validation.js'
-  import { getUsersByName } from './../../api/users/users'
+  import S from './../../api/siswa/siswa'
   import Alert from "components/Alert/Alert.svelte"
 
   const [ validity, validate ] = createFieldValidator(requiredValidator(), emailValidator())
@@ -10,11 +10,17 @@
 
   let isLogin = localStorage.getItem('isLogin');
   let selecet;
+  let selected;
   let readonly = ""
   let checkbox = true;
   let no_induk = false;
-  let isEdit = 0;
+  let isEdit = 0; 
   let judul = "Tambah Siswa"
+  let tgl="";
+  let bln="";
+  let thn="";
+  let tanggal_lahir_asli="";
+  tanggal_lahir_asli = thn+"-"+bln+"-"+tgl;
   export let dataUpdate = []
   let data = {
     no_induk: "",
@@ -25,7 +31,7 @@
     nama_wali: "",
     alamat: "",
     kelas: "",
-    status: ""
+    status: "1"
   }
   let msgError="";
   let alertOpen = 0;
@@ -39,7 +45,8 @@
     data.nama_wali= "",
     data.alamat= "",
     data.kelas= "",
-    data.status= ""
+    data.status= "1"
+    data.agama= ""
   }  
   
   const handleClose = () =>{
@@ -50,14 +57,13 @@
 		});
   }
 
-  const validateUsername =()=>{
-    getUsersByName(data.username).then(res => {
+  const validateNoInduk =()=>{
+    S.getSiswaByNoInduk(data.no_induk).then(res => {
       if (res == '401'){
         isLogin = 0
       }else{
-        data = res.response
-        if(data[0] != undefined){
-          msgError = "Username Yang Anda Masukan Sudah Ada"
+        if(res.response[0] != undefined){
+          msgError = "No Induk Yang Anda Masukan Sudah Terdaftar"
           alertOpen = 1
         }
       }
@@ -65,28 +71,48 @@
   }
 
   const formValidation =()=>{
-    if (data.name == ""){
+    if (data.no_induk == ""){
+      msgError = "No Induk Tidak boleh koosng"
+      alertOpen = 1
+      return 
+    }else if(data.nama == ""){
       msgError = "Nama Tidak boleh koosng"
       alertOpen = 1
-      return 
-    }else if(data.username == ""){
-      msgError = "Username Tidak boleh koosng"
-      alertOpen = 1
       return
-    }else if (data.email == ""){
-      msgError = "Email Tidak boleh koosng"
+    }else if (data.jenis_kelamin == ""){
+      msgError = "Jenis Kelamin Tidak boleh koosng"
       alertOpen = 1
       return 
-    }else if($validity.dirty && !$validity.valid){
-      msgError = $validity.message
-      alertOpen = 1
-      return
-    }else if(data.password == "" && isEdit == 0){
+    }else if(data.tempat_lahir == ""){
       msgError = "Password Tidak boleh koosng"
       alertOpen = 1
       return
-    }else if (data.password.length < 6 && isEdit == 0){
-      msgError = "Password harus lebih dari 6 karakter"
+    }else if(data.tgl == ""){
+      msgError = "Tanggal Tidak boleh koosng"
+      alertOpen = 1
+      return
+    }else if(data.bln == ""){
+      msgError = "Bulan Tidak boleh koosng"
+      alertOpen = 1
+      return
+    }else if(data.thn == ""){
+      msgError = "Tahun Tidak boleh koosng"
+      alertOpen = 1
+      return
+    }else if(data.nama_wali == ""){
+      msgError = "Tanggal Tidak boleh koosng"
+      alertOpen = 1
+      return
+    }else if(data.alamat == ""){
+      msgError = "Alamat Tidak boleh koosng"
+      alertOpen = 1
+      return
+    }else if(data.kelas == ""){
+      msgError = "Kelas Tidak boleh koosng"
+      alertOpen = 1
+      return
+    }else if(data.agama == ""){
+      msgError = "Agama Tidak boleh koosng"
       alertOpen = 1
       return
     }
@@ -98,13 +124,14 @@
   }
 
   const handleSimpan = () =>{
+    data.tanggal_lahir = thn+"-"+bln+"-"+tgl;
+
     formValidation()
-    validateUsername()
+    validateNoInduk()
     if(msgError != ""){
       return
     }
     alertOpen = 0
-    data.jenis_kelamin=selecet
     
     dispatch('onSimpan',{
       key:data
@@ -127,15 +154,23 @@
   }
 
   onMount(async () => {
+    let tgl_asli="";
     if (dataUpdate.id != undefined){
-      data.username = dataUpdate.username
-      data.name=dataUpdate.name
-      data.email=dataUpdate.email
-      data.level=dataUpdate.level
-      username = true
-      checkbox = false;
+      data.no_induk = dataUpdate.no_induk
+      data.nama=dataUpdate.nama
+      data.jenis_kelamin=dataUpdate.jenis_kelamin
+      data.tempat_lahir=dataUpdate.tempat_lahir
+      data.nama_wali=dataUpdate.nama_wali
+      data.alamat=dataUpdate.alamat
+      data.kelas=dataUpdate.kelas
+      data.agama=dataUpdate.agama
+      tgl_asli=dataUpdate.tanggal_lahir
+      thn=tgl_asli.substring(0,4)
+      bln=tgl_asli.substring(5,7)
+      tgl=tgl_asli.substring(8,10)
+      no_induk = true
       isEdit=1
-      judul = "Ubah User"
+      judul = "Ubah Data Siswa"
     }
 	});
 
@@ -190,7 +225,7 @@
               <input
                 {readonly}
                 id="grid-username"
-                placeholder="Username"
+                placeholder="No Induk"
                 type="text"
                 class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
                 bind:value="{data.no_induk}"
@@ -208,7 +243,7 @@
               </label>
               <input
                 id="grid-username"
-                placeholder="Username"
+                placeholder="Nama Lengkap"
                 type="text"
                 class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
                 bind:value="{data.nama}"
@@ -228,9 +263,10 @@
                 name="country" 
                 autocomplete="country" 
                 class="mt-1 block w-full py-3 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                bind:value={selecet}
+                bind:value={data.jenis_kelamin}
               >
-                <option value="1">Laki</option>
+                <option value="">Jenis Kelamin</option>
+                <option value="1">Laki - Laki</option>
                 <option value="0">Perempuan</option>
               </select>
             </div>
@@ -245,13 +281,150 @@
               </label>
               <input
                 id="grid-username"
-                placeholder="Username"
+                placeholder="Tempat Lahir"
                 type="text"
                 class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
                 bind:value="{data.tempat_lahir}"
               />
             </div>
-          </div>        
+          </div>      
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                for="grid-username"
+              >
+                Tanggal Lahir
+              </label>
+              <div class="w-full   flex">
+                <div class="relative w-full mb-2">
+                  <input
+                    id="grid-username"
+                    placeholder="Tanggal"
+                    type="text"
+                    class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+                    bind:value="{tgl}"
+                  />
+                </div>
+                <div class="relative w-full mb-2">
+                  <select 
+                    id="country" 
+                    name="country" 
+                    autocomplete="country" 
+                    class="block w-full py-3 px-3 border border-gray-300 bg-white rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    bind:value={bln}
+                  >
+                    <option value="">Bulan Lahir</option>
+                    <option value="01">Januari</option>
+                    <option value="02">Februari</option>
+                    <option value="03">Maret</option>
+                    <option value="04">April</option>
+                    <option value="05">Mei</option>
+                    <option value="06">Juni</option>
+                    <option value="07">Juli</option>
+                    <option value="08">Agustus</option>
+                    <option value="09">September</option>
+                    <option value="10">Oktober</option>
+                    <option value="11">November</option>
+                    <option value="12">Desemver</option>
+                  </select>
+                </div>
+                <div class="relative w-full mb-2">
+                  <input
+                    id="grid-username"
+                    placeholder="Tahun"
+                    type="text"
+                    class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+                    bind:value="{thn}"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>   
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                for="grid-username"
+              >
+                Nama Wali
+              </label>
+              <input
+                id="grid-username"
+                placeholder="Nama Wali"
+                type="text"
+                class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+                bind:value="{data.nama_wali}"
+              />
+            </div>
+          </div>   
+          <div class="w-full px-4">
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                for="grid-username"
+              >
+                Alamat
+              </label>
+              <input
+                id="grid-username"
+                placeholder="Alamat"
+                type="text"
+                class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+                bind:value="{data.alamat}"
+              />
+            </div>
+          </div>  
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                for="grid-email"
+              >
+                Kelas
+              </label>
+              <select 
+                id="country" 
+                name="country" 
+                autocomplete="country" 
+                class="mt-1 block w-full py-3 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                bind:value={data.kelas}
+              >
+                <option value="">Kelas</option>
+                <option value="1">X - IPA</option>
+                <option value="2">XI - IPA</option>
+                <option value="3">XII - IPA</option>
+                <option value="4">X - IPS</option>
+                <option value="5">XI - IPS</option>
+                <option value="6">XII - IPS</option>
+              </select>
+            </div>
+          </div>  
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                for="grid-email"
+              >
+                Agama
+              </label>
+              <select 
+                id="country" 
+                name="country" 
+                autocomplete="country" 
+                class="mt-1 block w-full py-3 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                bind:value={data.agama}
+              >
+                <option value="">Agama</option>
+                <option value="1">Islam</option>
+                <option value="2">Protestan</option>
+                <option value="3">Katolik</option>
+                <option value="4">Hindu</option>
+                <option value="5">Budha</option>
+                <option value="6">Khonghucu</option>
+              </select>
+            </div>
+          </div>  
         </div>
         <div class="text-center flex justify-between">
           <div class="mr-0 pt-6 pb-0">

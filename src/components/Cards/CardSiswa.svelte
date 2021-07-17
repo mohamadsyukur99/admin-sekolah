@@ -41,17 +41,6 @@
     }
   }
 
-  const status = (kode) => {
-    switch (kode) {
-      case "1":
-        return "Aktif"
-      case "-2":
-        return "Tidak aktif"
-      default:
-        break;
-    }
-  }
-
   const agama = (kode) => {
     switch (kode) {
       case "1":
@@ -190,6 +179,11 @@
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <a on:click="{handleHapus(key.id)}" href="#h" class="text-indigo-600 hover:text-indigo-900">Hapus</a>
                 </td>
+                <!-- <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
+                >
+                  <TableDropdown />
+                </td> -->
               </tr>
               {/each}
               <!-- More people... -->

@@ -3,7 +3,7 @@
 </svelte:head>
 <script>
 	import { onMount } from 'svelte';
-  import { getSiswa,getSiswaByName,postSiswa,getUSiswaById,putSiswa,deleteSiswa } from './../../api/siswa/siswa'
+  import S from './../../api/siswa/siswa'
   // core components
   import CardSiswa from "components/Cards/CardSiswa.svelte";
   import CardFormSiswa from "components/Cards/CardFormSiswa.svelte";
@@ -12,7 +12,6 @@
   import Filter from "components/Filter/Filter.svelte"
   import Alert from "components/Alert/Alert.svelte"
   import Title from "components/Navbars/Title.svelte"
-  import Utils from "../../utils/Utils"
 
   let isLogin = localStorage.getItem('isLogin');
   let data = [];
@@ -29,7 +28,7 @@
 
 
   const getAllSiswa = () =>{
-    getSiswa().then(res => {
+    S.getSiswa().then(res => {
       if (res == '401'){
         isLogin = 0
       }else{
@@ -46,7 +45,7 @@
     if (dataFilter == ""){
       getAllSiswa()
     }else{
-      getUsersByName(dataFilter).then(res => {
+      S.getSiswaByName(dataFilter).then(res => {
       if (res == '401'){
         isLogin = 0
       }else{
@@ -67,8 +66,9 @@
 
   const formEdit = (event) => {
     idSiswa      = event.detail.key
+
     isAlert=0
-    getUsersById(idSiswa).then(res => {
+    S.getUSiswaById(idSiswa).then(res => {
       if (res == '401'){
         isLogin = 0
       }else{
@@ -85,8 +85,7 @@
 
   const handleSimpan = (event) => {
     dataSimpan = event.detail.key
-    console.log(dataSimpan)
-    postUsers(JSON.stringify(dataSimpan)).then(res =>{
+    S.postSiswa(JSON.stringify(dataSimpan)).then(res =>{
       if (res.response != undefined){
         isForm = 0;
         judulAlert= "Information"
@@ -99,7 +98,7 @@
 
   const handleUpdate = (event) => {
     dataUpdate = event.detail.key
-    putUsers(JSON.stringify(dataUpdate),idSiswa).then(res =>{
+    S.putSiswa(JSON.stringify(dataUpdate),idSiswa).then(res =>{
       if (res.response != undefined){
         isForm = 0;
         isAlert=1
@@ -112,7 +111,7 @@
 
   const handleHapus = (event) =>{
     isHapus = 0
-    deleteUsers(idSiswa).then(res =>{
+    S.deleteSiswa(idSiswa).then(res =>{
       if (res.response != undefined){
         isAlert=1
         judulAlert= "Information"
@@ -128,18 +127,18 @@
     idSiswa = event.detail.key
     let dataHapus = []
     isHapus = 1
-    getUsersById(idSiswa).then(res => {
+    S.getUSiswaById(idSiswa).then(res => {
       if (res == '401'){
         isLogin = 0
       }else{
         dataHapus = res.response
-        namaSiswa = dataHapus.name
+        namaSiswa = dataHapus.nama
       }
     })
   }
 
   onMount(async () => {
-		const res = await getSiswa()
+		const res = await S.getSiswa()
     if (res == '401'){
       isLogin = 0
     }else{

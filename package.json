@@ -38,6 +38,7 @@
     "moment": "^2.29.1",
     "page": "^1.11.6",
     "sirv-cli": "1.0.11",
+    "smelte": "^1.1.6",
     "svelte-apollo": "^0.4.0",
     "svelte-routing": "1.5.0",
     "tailwindcss": "2.0.4",
