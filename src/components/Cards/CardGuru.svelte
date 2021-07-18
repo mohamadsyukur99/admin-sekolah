@@ -59,27 +59,6 @@
         break;
     }
   }
-
-  const kelas = (kode)=>{
-    switch (kode) {
-      case "1":
-        return "X - IPA"    
-      case "2":
-        return "XI - IPA"    
-      case "3":
-        return "XII - IPA"    
-      case "4":
-        return "X - IPS"    
-      case "5":
-        return "XI - IPS"    
-      case "6":
-        return "XII - IPS"    
-      default:
-        break;
-    }
-  }
-
-
 </script>
 
 <div
@@ -91,7 +70,7 @@
         <h3
           class="font-semibold text-lg {color === 'light' ? 'text-blueGray-700' : 'text-white'}"
         >
-          Data Siswa
+          Data Guru
         </h3>
       </div>
       <button
@@ -111,7 +90,7 @@
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  No Induk
+                  Nip
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Nama
@@ -126,16 +105,10 @@
                   Tanggal Lahir
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Nama Wali
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Alamat
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Agama
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Kelas
                 </th>
                 <th scope="col" class="relative px-6 py-3">
                   <span class="sr-only">Edit</span>
@@ -148,7 +121,7 @@
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="text-sm font-medium text-gray-900">
-                      {key.no_induk}
+                      {key.nip}
                     </div>
                   </div>
                 </td>
@@ -165,25 +138,19 @@
                   {Utils.FormatTanggal(key.tanggal_lahir,"DD-MM-YYYY")}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {key.nama_wali}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {key.alamat}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {agama(key.agama)}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {kelas(key.kelas)}
-                </td>
-                <!-- <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <a on:click="{handleHapus(key.id)}" href="#h" class="text-indigo-600 hover:text-indigo-900">Hapus</a>
-                </td> -->
-                <td
+                </td>
+                <!-- <td
                   class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
                 >
                   <TableDropdown />
-                </td>
+                </td> -->
               </tr>
               {/each}
               <!-- More people... -->

@@ -2,7 +2,7 @@
   import {createEventDispatcher,onMount} from 'svelte'
   import { emailValidator, requiredValidator } from './../../validate/validators.js'
   import { createFieldValidator } from './../../validate/validation.js'
-  import S from './../../api/siswa/siswa'
+  import G from './../../api/guru/guru'
   import Alert from "components/Alert/Alert.svelte"
 
   const [ validity, validate ] = createFieldValidator(requiredValidator(), emailValidator())
@@ -13,9 +13,9 @@
   let selected;
   let readonly = ""
   let checkbox = true;
-  let no_induk = false;
+  let nip = false;
   let isEdit = 0; 
-  let judul = "Tambah Siswa"
+  let judul = "Tambah Guru"
   let tgl="";
   let bln="";
   let thn="";
@@ -23,30 +23,26 @@
   tanggal_lahir_asli = thn+"-"+bln+"-"+tgl;
   export let dataUpdate = []
   let data = {
-    no_induk: "",
+    nip: "",
     nama: "",
     jenis_kelamin: "",
     tempat_lahir: "",
     tanggal_lahir: "",
-    nama_wali: "",
     alamat: "",
-    kelas: "",
     status: "1"
   }
   let msgError="";
   let alertOpen = 0;
 
   const clearForm = () =>{
-    data.no_induk= "",
+    data.nip= "",
     data.nama= "",
     data.jenis_kelamin= "",
     data.tempat_lahir= "",
     tgl= "",
-    bln= "",
     thn= "",
-    data.nama_wali= "",
+    bln= "",
     data.alamat= "",
-    data.kelas= "",
     data.status= "1"
     data.agama= ""
   }  
@@ -60,7 +56,7 @@
   }
 
   const validateNoInduk =()=>{
-    S.getSiswaByNoInduk(data.no_induk).then(res => {
+    G.getGuruNip(data.nip).then(res => {
       if (res == '401'){
         isLogin = 0
       }else{
@@ -73,56 +69,48 @@
   }
 
   const formValidation =()=>{
-    if (data.no_induk == ""){
-      msgError = "No Induk Tidak Boleh Kosong"
+    if (data.nip == ""){
+      msgError = "No Induk Tidak boleh koosng"
       alertOpen = 1
       return 
     }else if(data.nama == ""){
-      msgError = "Nama Tidak Boleh Kosong"
+      msgError = "Nama Tidak boleh koosng"
       alertOpen = 1
       return
     }else if (data.jenis_kelamin == ""){
-      msgError = "Jenis Kelamin Tidak Boleh Kosong"
+      msgError = "Jenis Kelamin Tidak boleh koosng"
       alertOpen = 1
       return 
     }else if(data.tempat_lahir == ""){
-      msgError = "Password Tidak Boleh Kosong"
+      msgError = "Password Tidak boleh koosng"
       alertOpen = 1
       return
     }else if(tgl == ""){
-      msgError = "Tanggal Tidak Boleh Kosong"
+      msgError = "Tanggal Tidak boleh koosng"
       alertOpen = 1
       return
-    }else if(tgl.length != 2 && tgl > 31){
+    }else if (tgl.length != 2 && tgl > 31){
       msgError = "Tanggal Tidak Valid"
       alertOpen = 1
       return
     }else if(bln == ""){
-      msgError = "Bulan Tidak Boleh Kosong"
+      msgError = "Bulan Tidak boleh koosng"
       alertOpen = 1
       return
     }else if(thn == ""){
-      msgError = "Tahun Tidak Boleh Kosong"
+      msgError = "Tahun Tidak boleh koosng"
       alertOpen = 1
       return
     }else if(thn.length != 4){
       msgError = "Tahun Tidak Valid"
       alertOpen = 1
       return
-    }else if(data.nama_wali == ""){
-      msgError = "Tanggal Tidak Boleh Kosong"
-      alertOpen = 1
-      return
     }else if(data.alamat == ""){
-      msgError = "Alamat Tidak Boleh Kosong"
-      alertOpen = 1
-      return
-    }else if(data.kelas == ""){
-      msgError = "Kelas Tidak Boleh Kosong"
+      msgError = "Alamat Tidak boleh koosng"
       alertOpen = 1
       return
     }else if(data.agama == ""){
-      msgError = "Agama Tidak Boleh Kosong"
+      msgError = "Agama Tidak boleh koosng"
       alertOpen = 1
       return
     }
@@ -166,21 +154,19 @@
   onMount(async () => {
     let tgl_asli="";
     if (dataUpdate.id != undefined){
-      data.no_induk = dataUpdate.no_induk
+      data.nip = dataUpdate.nip
       data.nama=dataUpdate.nama
       data.jenis_kelamin=dataUpdate.jenis_kelamin
       data.tempat_lahir=dataUpdate.tempat_lahir
-      data.nama_wali=dataUpdate.nama_wali
       data.alamat=dataUpdate.alamat
-      data.kelas=dataUpdate.kelas
       data.agama=dataUpdate.agama
       tgl_asli=dataUpdate.tanggal_lahir
       thn=tgl_asli.substring(0,4)
       bln=tgl_asli.substring(5,7)
       tgl=tgl_asli.substring(8,10)
-      no_induk = true
+      nip = true
       isEdit=1
-      judul = "Ubah Data Siswa"
+      judul = "Ubah Data Guru"
     }
 	});
 
@@ -204,7 +190,7 @@
     <div class="flex-auto px-4 lg:px-10 py-10 pt-0 bg-white">
       <form>
         <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-          User Information
+          Data Information
         </h6>
         <div class="flex flex-wrap">
           <!-- <div class="w-full px-4">
@@ -230,16 +216,16 @@
                 class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 for="grid-username"
               >
-                No Induk
+                Nip
               </label>
               <input
                 {readonly}
                 id="grid-username"
-                placeholder="No Induk"
+                placeholder="Nip"
                 type="text"
                 class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
-                bind:value="{data.no_induk}"
-                disabled={no_induk}
+                bind:value="{data.nip}"
+                disabled={nip}
               />
             </div>
           </div>
@@ -350,66 +336,7 @@
                 </div>
               </div>
             </div>
-          </div>   
-          <div class="w-full lg:w-6/12 px-4">
-            <div class="relative w-full mb-3">
-              <label
-                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                for="grid-username"
-              >
-                Nama Wali
-              </label>
-              <input
-                id="grid-username"
-                placeholder="Nama Wali"
-                type="text"
-                class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
-                bind:value="{data.nama_wali}"
-              />
-            </div>
-          </div>   
-          <div class="w-full px-4">
-            <div class="relative w-full mb-3">
-              <label
-                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                for="grid-username"
-              >
-                Alamat
-              </label>
-              <input
-                id="grid-username"
-                placeholder="Alamat"
-                type="text"
-                class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
-                bind:value="{data.alamat}"
-              />
-            </div>
-          </div>  
-          <div class="w-full lg:w-6/12 px-4">
-            <div class="relative w-full mb-3">
-              <label
-                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                for="grid-email"
-              >
-                Kelas
-              </label>
-              <select 
-                id="country" 
-                name="country" 
-                autocomplete="country" 
-                class="mt-1 block w-full py-3 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                bind:value={data.kelas}
-              >
-                <option value="">Kelas</option>
-                <option value="1">X - IPA</option>
-                <option value="2">XI - IPA</option>
-                <option value="3">XII - IPA</option>
-                <option value="4">X - IPS</option>
-                <option value="5">XI - IPS</option>
-                <option value="6">XII - IPS</option>
-              </select>
-            </div>
-          </div>  
+          </div>    
           <div class="w-full lg:w-6/12 px-4">
             <div class="relative w-full mb-3">
               <label
@@ -433,6 +360,23 @@
                 <option value="5">Budha</option>
                 <option value="6">Khonghucu</option>
               </select>
+            </div>
+          </div>  
+          <div class="w-full px-4">
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                for="grid-username"
+              >
+                Alamat
+              </label>
+              <input
+                id="grid-username"
+                placeholder="Alamat"
+                type="text"
+                class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+                bind:value="{data.alamat}"
+              />
             </div>
           </div>  
         </div>

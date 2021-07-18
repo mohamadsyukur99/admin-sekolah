@@ -9,28 +9,28 @@
       type: "line",
       data: {
         labels: [
-          "Bahasa Indonesia",
-          "Matematika",
-          "bahasa Inggris",
-          "Biologi",
-          "Kimia",
-          "Fisika",
+          "2016 ",
+          "2017",
+          "2018",
+          "2019",
+          "2020",
+          "2021",
         ],
         datasets: [
           {
             label: new Date().getFullYear(),
-            backgroundColor: "#4c51bf",
-            borderColor: "#4c51bf",
-            data: [65, 78, 66, 44, 56, 67],
-            fill: false
-          },
-          {
-            label: new Date().getFullYear() - 1,
-            fill: false,
             backgroundColor: "#fff",
             borderColor: "#fff",
-            data: [40, 68, 86, 74, 56, 60, 87]
+            data: [65, 78, 66, 44, 56, 67],
+            fill: false
           }
+          // {
+          //   label: new Date().getFullYear() - 1,
+          //   fill: false,
+          //   backgroundColor: "#fff",
+          //   borderColor: "#fff",
+          //   data: [40, 68, 86, 74, 56, 60, 87]
+          // }
         ]
       },
       options: {
@@ -116,10 +116,10 @@
     <div class="flex flex-wrap items-center">
       <div class="relative w-full max-w-full flex-grow flex-1">
         <h6 class="uppercase text-blueGray-100 mb-1 text-xs font-semibold">
-          Overview
+          Presentase Data Siswa Pertahun
         </h6>
         <h2 class="text-white text-xl font-semibold">
-          Nilai
+          Tahun
         </h2>
       </div>
     </div>

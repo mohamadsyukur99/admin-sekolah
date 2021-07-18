@@ -47,8 +47,8 @@
       if (res == '401'){
         isLogin = 0
       }else{
-        data = res.response
-        if(data[0] != undefined){
+        // data = res.response
+        if(res.response[0] != undefined){
           msgError = "Username Yang Anda Masukan Sudah Ada"
           alertOpen = 1
         }

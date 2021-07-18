@@ -36,7 +36,7 @@
     statusButton = 1;
     if (data.username == ""){
       isAlert = true
-      pesan = "Email Tidak boleh koosng"
+      pesan = "Username Tidak boleh koosng"
       statusButton = 0;
       return 
     }else if(data.password == ""){

@@ -16,9 +16,10 @@
   const login = "/assets/img/login.jpg";
   const profile = "/assets/img/profile.jpg";
   const landing = "/assets/img/landing.jpg";
+  const gambar = "/assets/img/gambar-01-min-min.jpg";
+  import Login from "./../views/auth/Login.svelte";
 
   let isLogin = localStorage.getItem('isLogin');
-
 
 
   if (isLogin != 1) {
@@ -28,6 +29,15 @@
   export let location;
 </script>
 
+{#if isLogin != 1}
+<section class="relative w-full h-full py-40 min-h-screen">
+  <div
+    class="absolute top-0 w-full h-full bg-blueGray-800 bg-no-repeat bg-full"
+    style="background-image: url({gambar});"
+  ></div>
+  <Login />
+</section>
+{:else}
 <IndexNavbar />
 <section class="header relative pt-16 items-center flex h-screen max-h-860-px">
   <div class="container mx-auto items-center flex flex-wrap">
@@ -751,3 +761,4 @@
   </div>
 </section>
 <Footer />
+{/if}
