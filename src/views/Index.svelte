@@ -1,9 +1,11 @@
 <script>
   import { Link, navigate } from "svelte-routing";
+  import { onMount } from 'svelte';
   
   // core components
   import IndexNavbar from "components/Navbars/IndexNavbar.svelte";
   import Footer from "components/Footers/Footer.svelte";
+  import Auth from './../api/auth/login'
 
   const patternVue = "/assets/img/pattern_svelte.png";
   const componentBtn = "/assets/img/component-btn.png";
@@ -20,11 +22,20 @@
   import Login from "./../views/auth/Login.svelte";
 
   let isLogin = localStorage.getItem('isLogin');
+  
+  const CekStatus = () =>{
+    Auth.CekStatus().then(res => {
+      if (res == '401'){
+        isLogin = 0
+      }else{
+        console.log("oke")
+      }
+    })
+  }
 
-
-  if (isLogin != 1) {
-    navigate("auth/login", { replace: true });
-  } 
+  onMount(async () => {
+		 await CekStatus()
+	});
 
   export let location;
 </script>
